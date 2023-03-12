@@ -16,7 +16,14 @@ const slugQuery = groq`
 `;
 const query = groq`
 *[_type=='page' && slug.current == $slug][0] {
-    ...,
+	..., 
+	content[] {
+		...,
+		photographyGridItems[]{
+		...,
+		photography->
+		}
+	},
 	Settings->
 }
 `;

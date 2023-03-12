@@ -8,7 +8,19 @@ import PreviewHomeContent from "./components/home/PreviewHomeContent";
 
 const query = groq`
   *[_type=='page' && slug.current == "home"][0] {
-    ...
+	..., 
+	content[] {
+		...,
+		photographyGridItems[]{
+			...,
+			photography-> {
+				_id,
+				featuredImage,
+				slug,
+				title
+			}
+		}
+	}
   }
 `;
 

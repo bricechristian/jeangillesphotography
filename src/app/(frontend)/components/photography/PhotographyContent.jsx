@@ -4,7 +4,7 @@ const PhotograhyContent = ({data}) => {
     return ( 
         <section className="py-24 md:py-12">
             <div className="container">
-                <h1>{photography.title}</h1>
+                <h1 className="headline">{photography.title}</h1>
             </div>
         </section>
      );

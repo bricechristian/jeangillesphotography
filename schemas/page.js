@@ -27,7 +27,8 @@ export default defineType({
         title: 'Content',
         of: [
           defineArrayMember({type: 'hero'}),
-          defineArrayMember({type: 'textHeadline'})
+          defineArrayMember({type: 'textHeadline'}),
+          defineArrayMember({type: 'photographyGrid'})
         ]
     }),
     defineField({

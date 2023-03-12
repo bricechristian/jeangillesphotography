@@ -12,17 +12,16 @@ module.exports = {
   },
   darkMode: false,
   theme: {
-    // fontFamily: {
-    //   body: ['', 'sans-serif'],
-    //   heading: ['', 'serif'],
-    //   italic: ['', 'serif']
-    // },
+    fontFamily: {
+      sans: 'Montserrat, ui-sans-heading, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-heading, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      heading: 'Ailerons',
+    },
     colors: {
       'transparent': 'transparent',
       'gray': '#E6E6E6',
       'dark-gray': '#999999',
-      'black': '#1e1e1e',
-      'white': '#fff'
+      'black': '#1a1a1a',
+      'white': '#e9e9e9'
     },
     fontSize: {
       10: '10px',
