@@ -1,11 +1,32 @@
+"use client";
+
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+
 import PhotographyGridItem from "./PhotographyGridItem";
+import { useRelativeCoordinates } from "../hooks/useRelativeCoordinates";
 
 const PhotographyGrid = ({ data }) => {
 	// console.log(data);
+
+    const [mousePosition, setMousePosition] = useState({});
+    const [activeGridItem, setActiveGridItem] = useState("");
+    const [activeGridItemHovered, setActiveGridItemHovered] = useState(false);
+    const gridRef = useRef();
+    const handleMouseMove = e => {
+        setMousePosition(useRelativeCoordinates(e, gridRef.current));
+      };
+
 	const gridItems = data.photographyGridItems;
 	return (
-		<section key={data._key} className="">
+		<motion.section 
+        ref={gridRef}
+        key={data._key} 
+        className="relative"
+        onMouseMove={e => handleMouseMove(e)}
+        >
 			<div className="container">
+                Mouse: {mousePosition.x}, {mousePosition.y}
 				<div className="grid gap-1 md_min:grid-cols-8">
 					{gridItems.map((item) => {
 						let itemWidth;
@@ -29,11 +50,20 @@ const PhotographyGrid = ({ data }) => {
 								itemWidth = "md_min:col-span-full";
 								break;
 						}
-						return <PhotographyGridItem item={item} itemWidth={itemWidth} />;
+						return <PhotographyGridItem item={item} itemWidth={itemWidth} setActiveGridItem={setActiveGridItem} setActiveGridItemHovered={setActiveGridItemHovered} />;
 					})}
 				</div>
 			</div>
-		</section>
+            <motion.div 
+                className={`fixed z-30 pointer-events-none`}
+                animate={{
+                    x: mousePosition.x,
+                    y: mousePosition.y
+                  }}
+            >
+                <h1 className={`headline`}>{activeGridItem}</h1>
+            </motion.div>
+		</motion.section>
 	);
 };
 

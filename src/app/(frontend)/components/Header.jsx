@@ -30,13 +30,14 @@ const Header = async () => {
 	// console.log(nav);
 	return (
 		<header className="py-4">
-			<nav className="container-full">
+			<nav className="container">
 				<div className="flex justify-between items-center">
 					<Link href="/">
 						<Wordmark className="w-[175px] h-[37px] fill-white" />
 					</Link>
 					<ul className="flex gap-6">
-						{nav.menuItems.map((item) => {
+						<li className="caps">MENU</li>
+						{/* {nav.menuItems.map((item) => {
 							return (
 								<li key={item._key}>
 									{item.link?.externalLink ? (
@@ -59,7 +60,7 @@ const Header = async () => {
 									)}
 								</li>
 							);
-						})}
+						})} */}
 					</ul>
 				</div>
 			</nav>

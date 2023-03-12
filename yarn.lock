@@ -3805,6 +3805,15 @@ framer-motion@6.3.0:
   optionalDependencies:
     "@emotion/is-prop-valid" "^0.8.2"
 
+framer-motion@^10.2.4:
+  version "10.2.4"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-10.2.4.tgz#e728a34c5c208aef4ee2b829409e0f59c7d6405c"
+  integrity sha512-0a5yR1jwOfSO0jJEpZUrgWYEa1EPU2yGVmytSu+uMYWV7bcFHwaHVYz2GchzWPH1rW7nXg8zmw8cp4+zNJJaUA==
+  dependencies:
+    tslib "^2.4.0"
+  optionalDependencies:
+    "@emotion/is-prop-valid" "^0.8.2"
+
 framer-motion@^6.3.0:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.5.1.tgz#802448a16a6eb764124bf36d8cbdfa6dd6b931a7"

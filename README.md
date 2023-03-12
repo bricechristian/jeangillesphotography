@@ -5,7 +5,7 @@ It uses:
 - SCSS + [Tailwind](https://tailwindcss.com/)
 
 ## 🚀 To-Do
-1. More components for page builder.
+1. Movement/Motion/Animation
 
 ## 📋 Where to edit
 1. Admin (Sanity Studio): `src/app/(admin)/**`

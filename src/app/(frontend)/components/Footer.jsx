@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <footer className="py-4">
-            <nav className="container-full">
+            <nav className="container">
                 Footer
             </nav>
         </footer>
