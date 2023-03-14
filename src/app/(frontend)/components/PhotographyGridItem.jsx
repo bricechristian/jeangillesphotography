@@ -11,6 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const PhotographyGridItem = ({
+    index,
 	item,
 	itemWidth,
 	activeGridItem,
@@ -46,11 +47,33 @@ const PhotographyGridItem = ({
 		setActiveGridItemHovered(false);
 	};
 
+    let imageAspectRatio;
+    switch (itemWidth) {
+        case "md_min:col-span-2":
+            imageAspectRatio = "aspect-[4/5]";
+        break;
+        case "md_min:col-span-3":
+            imageAspectRatio = "aspect-[4/5]";
+        break;
+        case "md_min:col-span-4":
+            imageAspectRatio = "aspect-[4/5]";
+        break;
+        case "md_min:col-span-5":
+            imageAspectRatio = "aspect-[8/6]";
+        break;
+        case "md_min:col-span-6":
+            imageAspectRatio = "aspect-[75/31]";
+        break;
+        case "md_min:col-span-full":
+            imageAspectRatio = "aspect-video";
+        break;
+    }
+
 	return (
 		<Link
 			key={item._key}
 			href={`/photography/${item.photography.slug.current}`}
-			className={`${itemWidth} relative overflow-hidden`}
+			className={`flex ${itemWidth} relative overflow-hidden`}
             onMouseLeave={() => handleGridItemHoverOut()}
             >
 			<motion.div
@@ -60,10 +83,10 @@ const PhotographyGridItem = ({
 				className="absolute w-full h-full z-20 inset-0 translate-y-0 bg-black"></motion.div>
 			<div
 				ref={itemRef}
-				className="relative overflow-hidden"
+				className="flex relative overflow-hidden"
 				onMouseEnter={() => handleGridItemHoverIn()}>
 				<motion.div
-					className={`will-change-transform`}
+					className={`flex will-change-transform`}
 					initial={{ scale: 1.25 }}
 					animate={{ scale: 1 }}
 					whileHover={{
@@ -75,8 +98,14 @@ const PhotographyGridItem = ({
 					transition={{ duration: 1.25, ease: [0.25, 1, 0.5, 1] }}>
 					<Image
 						{...imageProps}
-                        priority
-						className={`w-full h-full object-cover transition duration-500 ${
+                        alt={item.photography.featuredImage.alt}
+                        priority={true}
+                        width={1920}
+                        height={1080}
+                        sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 1400px,
+                        1920px"
+						className={`${imageAspectRatio} w-full h-full object-cover transition duration-500 ${
                             activeGridItemHovered &&
                             activeGridItem === item.photography.title
                                 ? "opacity-60"

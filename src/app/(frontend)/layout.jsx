@@ -61,7 +61,7 @@ export default async function RootLayout({ children }) {
 				/>
 				<Header />
 				<main>{children}</main>
-				<Footer />
+				<Footer segment={children.props.childProp.segment} />
 			</body>
 		</html>
 	);

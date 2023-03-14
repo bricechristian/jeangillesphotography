@@ -1,6 +1,6 @@
-const Footer = () => {
+const Footer = ({segment}) => {
     return (
-        <footer className="py-4">
+        <footer className={`py-4`}>
             <nav className="container">
                 Footer
             </nav>

@@ -20,7 +20,7 @@ const PhotographyGrid = ({ data }) => {
         >
 			<div className="container">
 				<div className="grid gap-1 md_min:grid-cols-8">
-					{gridItems.map((item) => {
+					{gridItems.map((item, index) => {
 						let itemWidth;
 						switch (item.width) {
 							case "1/4":
@@ -42,7 +42,7 @@ const PhotographyGrid = ({ data }) => {
 								itemWidth = "md_min:col-span-full";
 								break;
 						}
-						return <PhotographyGridItem item={item} itemWidth={itemWidth} activeGridItem={activeGridItem} activeGridItemHovered={activeGridItemHovered} setActiveGridItem={setActiveGridItem} setActiveGridItemHovered={setActiveGridItemHovered} />;
+						return <PhotographyGridItem index={index} item={item} itemWidth={itemWidth} activeGridItem={activeGridItem} activeGridItemHovered={activeGridItemHovered} setActiveGridItem={setActiveGridItem} setActiveGridItemHovered={setActiveGridItemHovered} />;
 					})}
 				</div>
 			</div>

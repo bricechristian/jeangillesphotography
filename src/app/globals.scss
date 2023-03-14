@@ -50,6 +50,9 @@
 	// TYPOGRAPHY
 	.headline {
 		@apply font-sans font-semibold text-80 leading-none md:text-32;
+		&-sm {
+			@apply font-sans font-semibold text-40 leading-none tracking-tighter md:text-24;
+		}
 		&-xl {
 			@apply font-sans font-semibold text-[clamp(60px,10vw,140px)] leading-none tracking-tighter;
 		}
@@ -111,6 +114,11 @@
 	.transition-smooth {
 		transition: 0.3s;
 	}
+}
+
+//MASONRY
+.react-photo-album--photo {
+  // @apply border border-white;
 }
 
 // CUSTOM SCROLLBAR

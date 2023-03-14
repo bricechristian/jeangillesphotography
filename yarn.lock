@@ -5678,6 +5678,11 @@ react-photo-album@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-photo-album/-/react-photo-album-2.0.2.tgz#ff769e1c86686c88776e7b3676db4f106977244a"
   integrity sha512-Fg2vbahSAjAm9y2GjlYM1HBG6jFvhUPumwP6oYzF9z4JreCao1Jh9pgzUXenmUtgSvqaIeEMxUaEJHdmcVaE6w==
 
+react-photo-album@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-photo-album/-/react-photo-album-2.0.3.tgz#fd1a9bbb57d75c29c5b47ddf9e28f050132bd55d"
+  integrity sha512-LI3Ttg6BF/MtMVeaSAGaSxFJ6ihN+vxPHF1yb8Y/5y785Fpz1akzsG5Ti9/r9oYnL5XRNOuWC/OKGMZzLociGg==
+
 react-popper@^2.2.5:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.3.0.tgz#17891c620e1320dce318bad9fede46a5f71c70ba"
@@ -7067,6 +7072,11 @@ yargs@^17.3.0:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
+
+yet-another-react-lightbox@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/yet-another-react-lightbox/-/yet-another-react-lightbox-2.6.2.tgz#3f4765eb99cc70e4c09661ea4a958d75632b1ce9"
+  integrity sha512-P03quWhfmmqvgraMPxJybiwlwtCnHeO1oCDjJoyDIU/mif0AzJQR1ZAYMCAgNdV1jrJNovDfN3LjWP5L5QzmyA==
 
 yoastseo@^1.91.1-rc.0:
   version "1.91.1"

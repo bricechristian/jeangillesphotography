@@ -16,7 +16,7 @@ const slugQuery = groq`
 `;
 const query = groq`
 *[_type=='photography' && slug.current == $slug][0] {
-    ...
+	...
 }
 `;
 

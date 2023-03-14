@@ -1,15 +1,14 @@
 "use client";
 
 import { usePreview } from "../../../../../lib/sanity.preview";
+import PhotographyContentBody from "./PhotographyContentBody";
 
-const PreviewPhotographyContent = ({query, queryParams}) => {
-    const photography = usePreview(null, query, queryParams);
-    // console.log(photography)
-    return ( 
-        <section>
-            <h1>{photography.title}</h1>
-        </section>
-     );
-}
- 
+const PreviewPhotographyContent = ({ query, queryParams }) => {
+	const data = usePreview(null, query, queryParams);
+	// console.log(photography)
+	return (
+        <PhotographyContentBody data={data} />
+	);
+};
+
 export default PreviewPhotographyContent;
