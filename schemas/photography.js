@@ -44,6 +44,7 @@ export default defineType({
           name: 'image',
           type: 'image',
           title: 'Image',
+          validation: Rule => Rule.required(),
           fields: [
             {
               name: 'alt',
