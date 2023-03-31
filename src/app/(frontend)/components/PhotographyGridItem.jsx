@@ -62,7 +62,7 @@ const PhotographyGridItem = ({
             imageAspectRatio = "aspect-[8/6]";
         break;
         case "md_min:col-span-6":
-            imageAspectRatio = "aspect-[75/31]";
+            imageAspectRatio = "aspect-[75/42]";
         break;
         case "md_min:col-span-full":
             imageAspectRatio = "aspect-video";
