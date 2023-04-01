@@ -1,0 +1,27 @@
+---
+const {delay = .25, inViewSelector, text} = Astro.props;
+---
+
+<text-animate data-in-view={inViewSelector} data-delay={delay}>
+    <span>{text}</span>
+</text-animate>
+
+<script>
+    import { inView, animate } from "motion";
+
+    class TextAnimate extends HTMLElement {
+      constructor() {
+        super();
+  
+        const selector = this.getAttribute("data-in-view");
+        const delay = Number(this.getAttribute("data-delay"));
+        const text = this.querySelector('span');
+        inView(selector, () => {
+            animate(text, { y: ["100%", 0] }, { duration: 1, delay })
+        })
+
+      }
+    }
+  
+    customElements.define('text-animate', TextAnimate);
+  </script>

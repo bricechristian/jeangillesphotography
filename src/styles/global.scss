@@ -106,6 +106,14 @@
 	}
 }
 
+// TEXT ANIMATE
+text-animate {
+	@apply inline-block overflow-hidden relative;
+	span {
+		@apply block;
+	}
+}
+
 // CUSTOM SCROLLBAR
 *::-webkit-scrollbar {
 	width: 0.2em;
