@@ -110,7 +110,7 @@
 text-animate {
 	@apply inline-block overflow-hidden relative;
 	span {
-		@apply block;
+		@apply block translate-y-full;
 	}
 }
 
