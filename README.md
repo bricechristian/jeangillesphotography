@@ -1,6 +1,6 @@
 # 📦 Jean-Gilles Photography Portfolio
 It uses:
-- [Next JS](https://nextjs.org/)
+- [Astro JS](https://astro.build/)
 - [Sanity](https://sanity.io/)
 - SCSS + [Tailwind](https://tailwindcss.com/)
 
