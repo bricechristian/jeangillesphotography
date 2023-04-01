@@ -4,7 +4,6 @@ import { client } from "lib/sanity.client";
 import imageUrlBuilder from "@sanity/image-url";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 const query = groq`
 *[_type=='global'][0]{
@@ -61,7 +60,6 @@ export default async function RootLayout({ children }) {
 				/>
 				<Header />
 				<main>{children}</main>
-				<Footer segment={children.props.childProp.segment} />
 			</body>
 		</html>
 	);
