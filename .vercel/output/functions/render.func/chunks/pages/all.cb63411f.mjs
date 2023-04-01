@@ -3098,7 +3098,7 @@ const $$Layout = createComponent(async ($$result, $$props, $$slots) => {
 			${renderSlot($$result, $$slots["default"])}
 		</main>
 	</body></html>`;
-}, "/Users/bricechristian/Documents/GitHub/jeangillesphotography/frontend/src/layouts/Layout.astro");
+}, "/Users/bricechristian/Documents/GitHub/jeangillesphotography/src/layouts/Layout.astro");
 
 const $$Astro = createAstro();
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
@@ -3109,9 +3109,9 @@ const $$Index = createComponent(async ($$result, $$props, $$slots) => {
 			<h1>Hello world.</h1>
 		</div>
 	</section>` })}`;
-}, "/Users/bricechristian/Documents/GitHub/jeangillesphotography/frontend/src/pages/index.astro");
+}, "/Users/bricechristian/Documents/GitHub/jeangillesphotography/src/pages/index.astro");
 
-const $$file = "/Users/bricechristian/Documents/GitHub/jeangillesphotography/frontend/src/pages/index.astro";
+const $$file = "/Users/bricechristian/Documents/GitHub/jeangillesphotography/src/pages/index.astro";
 const $$url = "";
 
 const _page0 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
