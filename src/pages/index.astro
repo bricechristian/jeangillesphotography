@@ -1,7 +1,38 @@
 ---
+import { useSanityClient } from 'astro-sanity';
+
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import PhotographyGrid from "../components/PhotographyGrid.astro";
+
+const data = await useSanityClient().fetch(`
+  *[_type=='page' && slug.current == "home"][0] {
+	..., 
+	content[] {
+		...,
+		photographyGridItems[]{
+			...,
+			photography-> {
+				_id,
+				featuredImage,
+				slug,
+				title
+			}
+		}
+	}
+  }
+`);
+// console.log(data)
 ---
 <Layout>
-	<Hero />
+	{data.content.map((section) => {
+		switch (section._type) {
+			case "hero":
+				return 	<Hero />;
+			case "photographyGrid":
+				return <PhotographyGrid data={section} />;
+			// case "textHeadline":
+			// 	return <TextHeadline data={section} />;
+		}
+	})}	
 </Layout>

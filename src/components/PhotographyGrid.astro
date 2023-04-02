@@ -1,0 +1,34 @@
+---
+import PhotographyGridItem from "./PhotographyGridItem.astro";
+const {data} = Astro.props;
+const gridItems = data.photographyGridItems;
+---
+
+<div class="container">
+    <div class="grid gap-1 md_min:grid-cols-8">
+        {gridItems.map((item, index) => {
+            let itemWidth;
+            switch (item.width) {
+                case "1/4":
+                    itemWidth = "md_min:col-span-2";
+                    break;
+                case "3/8":
+                    itemWidth = "md_min:col-span-3";
+                    break;
+                case "1/2":
+                    itemWidth = "md_min:col-span-4";
+                    break;
+                case "5/8":
+                    itemWidth = "md_min:col-span-5";
+                    break;
+                case "3/4":
+                    itemWidth = "md_min:col-span-6";
+                    break;
+                case "Full":
+                    itemWidth = "md_min:col-span-full";
+                    break;
+            }
+            return <PhotographyGridItem index={index} item={item} itemWidth={itemWidth} />;
+        })}
+    </div>
+</div>
