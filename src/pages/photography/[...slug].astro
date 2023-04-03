@@ -1,5 +1,9 @@
 ---
 import { useSanityClient } from 'astro-sanity';
+import { urlForImage } from '../../utilities/sanityImage.js';
+
+import "bigger-picture/css";
+
 import Layout from "../../layouts/Layout.astro";
 
 const { slug } = Astro.params;
@@ -12,15 +16,105 @@ const data = await useSanityClient().fetch(`
 
 if (!data) return Astro.redirect("/404");
 
-// console.log(data)
-// const { data } = Astro.props;
 
+const { images } = data;
+// console.log(images)
+// const { data } = Astro.props;
+// const images = [...photography.images]
 ---
 
+<style is:global>
+  .bp-img {
+    display: flex;
+    align-items: center;
+    max-height: calc(100vh - 60px);
+    background-image: none !important;
+  }
+  .bp-img img, .bp-img div {
+    height: auto;
+    object-fit: contain;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+</style>
+
 <Layout>
-  <section>
+  <section class="pb-6 md_min:pb-24">
       <div class="container text-center">
-          <h1>{data.title}</h1>
+				<h1 class="pointer-events-none bottom-12 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent">{data.title}.</h1>
+        <div id="images" class="grid gap-6 grid-cols-2 md_min:gap-12 md_min:grid-cols-3">
+          <!-- <a
+            href="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash.jpg"
+            data-img="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_1133.jpg 1133w, https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash.jpg 1667w"
+            data-thumb="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_thumb.jpg"
+            data-height="2500"
+            data-width="1667"
+            data-alt="Antelope Canyon"
+          >
+            <img
+              src="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_thumb.jpg"
+              alt="Antelope Canyon"
+            />
+          </a> -->
+          {images.map(img => {
+            return (
+            <a
+              href={urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()}
+              data-img={`${urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()} 479w,
+                    ${urlForImage(img.asset).format('webp').maxWidth(1200).quality(80).url()} 768w,
+                    ${urlForImage(img.asset).format('webp').maxWidth(1920).quality(80).url()} 1200w`}
+              data-thumb={urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()}
+              data-height="1920"
+              data-width="1080"
+              data-alt={img.alt}
+              >
+              <img
+                src={urlForImage(img.asset).format('webp').maxWidth(1200).quality(80).url()}
+                alt="map of critical role's exandria"
+              />
+            </a>
+            )
+          })}
+        </div>        
       </div>
   </section>       
 </Layout>
+
+<script>
+  import BiggerPicture from "bigger-picture";
+  import Macy from "macy";
+  //bigger picture
+  // initialize BiggerPicture
+  const bp = BiggerPicture({
+    target: document.body
+  });
+
+  // grab image links
+  const imageLinks = document.querySelectorAll("#images > a");
+
+  // add click listener to open BiggerPicture
+  for (let link of imageLinks) {
+    link.addEventListener("click", openGallery);
+  }
+
+  // open BiggerPicture
+  function openGallery(e) {
+    e.preventDefault();
+    bp.open({
+      items: imageLinks,
+      el: e.currentTarget
+    });
+  }  
+  //masonry
+  Macy({
+    container: "#images",
+    trueOrder: true,
+    margin: 4,
+    columns: 3,
+    breakAt: {
+      767: {
+        columns: 2
+      }
+    }
+  });
+</script>
