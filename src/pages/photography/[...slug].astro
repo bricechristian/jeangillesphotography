@@ -1,0 +1,26 @@
+---
+import { useSanityClient } from 'astro-sanity';
+import Layout from "../../layouts/Layout.astro";
+
+const { slug } = Astro.params;
+
+const data = await useSanityClient().fetch(`
+*[_type=='photography' && slug.current == '${slug}'][0] {
+	...
+}
+`);
+
+if (!data) return Astro.redirect("/404");
+
+// console.log(data)
+// const { data } = Astro.props;
+
+---
+
+<Layout>
+  <section>
+      <div class="container text-center">
+          <h1>{data.title}</h1>
+      </div>
+  </section>       
+</Layout>
