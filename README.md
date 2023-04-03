@@ -6,6 +6,7 @@ It uses:
 
 ## 🚀 To-Do
 1. Movement/Motion/Animation
+2. Contact form using [Web3Forms](https://web3forms.com/)
 
 ## 📋 Where to edit
 1. Admin (Sanity Studio): `src/app/(admin)/**`
