@@ -38,28 +38,22 @@ const { images } = data;
   }
 </style>
 
+<style>
+  #images {
+    column-gap: 3px;
+  }
+</style>
+
 <Layout>
   <section class="pb-6 md_min:pb-24">
       <div class="container text-center">
 				<h1 class="pointer-events-none bottom-12 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent">{data.title}.</h1>
-        <div id="images" class="grid gap-6 grid-cols-2 md_min:gap-12 md_min:grid-cols-3">
-          <!-- <a
-            href="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash.jpg"
-            data-img="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_1133.jpg 1133w, https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash.jpg 1667w"
-            data-thumb="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_thumb.jpg"
-            data-height="2500"
-            data-width="1667"
-            data-alt="Antelope Canyon"
-          >
-            <img
-              src="https://assets.henrygd.me/bp/images/joshua-sukoff-sZ5zbZMAYJs-unsplash_thumb.jpg"
-              alt="Antelope Canyon"
-            />
-          </a> -->
+        <div id="images" class="columns-3 md:columns-2">
           {images.map(img => {
             return (
             <a
               href={urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()}
+              class="block mb-[3px]"
               data-img={`${urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()} 479w,
                     ${urlForImage(img.asset).format('webp').maxWidth(1200).quality(80).url()} 768w,
                     ${urlForImage(img.asset).format('webp').maxWidth(1920).quality(80).url()} 1200w`}
@@ -68,10 +62,22 @@ const { images } = data;
               data-width="1080"
               data-alt={img.alt}
               >
-              <img
-                src={urlForImage(img.asset).format('webp').maxWidth(1200).quality(80).url()}
-                alt="map of critical role's exandria"
-              />
+              <picture>
+                <source
+                  srcset={urlForImage(img.asset).format('webp').quality(80).url()}
+                  type="image/webp"
+                />
+                <img
+                    src={urlForImage(img.asset).maxWidth(800).quality(80).url()}
+                    width="1920"
+                    width="1080"
+                    alt={img.alt}
+                    srcset={`${urlForImage(img.asset).maxWidth(800).quality(80).url()} 479w,
+                    ${urlForImage(img.asset).maxWidth(1200).quality(80).url()} 768w,
+                    ${urlForImage(img.asset).maxWidth(1920).quality(80).url()} 1200w`}                    
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"                    
+                />
+              </picture>                    
             </a>
             )
           })}
@@ -105,16 +111,16 @@ const { images } = data;
       el: e.currentTarget
     });
   }  
-  //masonry
-  Macy({
-    container: "#images",
-    trueOrder: true,
-    margin: 4,
-    columns: 3,
-    breakAt: {
-      767: {
-        columns: 2
-      }
-    }
-  });
+  // //masonry
+  // Macy({
+  //   container: "#images",
+  //   trueOrder: true,
+  //   margin: 4,
+  //   columns: 3,
+  //   breakAt: {
+  //     767: {
+  //       columns: 2
+  //     }
+  //   }
+  // });
 </script>
