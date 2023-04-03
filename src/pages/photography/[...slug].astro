@@ -27,14 +27,30 @@ const { images } = data;
   .bp-img {
     display: flex;
     align-items: center;
-    max-height: calc(100vh - 60px);
-    background-image: none !important;
+    background-image: none!important;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
   }
   .bp-img img, .bp-img div {
     height: auto;
     object-fit: contain;
     top: 50%;
     transform: translateY(-50%);
+    object-position: center;
+    max-height: 80vmin;
+  }
+  @media (orientation: portrait){
+    .bp-img img, .bp-img div {
+      max-width: 80vw;
+      max-height: fit-content;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+    }
   }
 </style>
 
