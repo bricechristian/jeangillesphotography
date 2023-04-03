@@ -1,45 +1,53 @@
 ---
+import { urlForImage } from '../utilities/sanityImage.js';
+
 const { item, itemWidth } = Astro.props;
 let imageAspectRatio;
-    switch (itemWidth) {
-        case "md_min:col-span-2":
-            imageAspectRatio = "aspect-[4/5]";
-        break;
-        case "md_min:col-span-3":
-            imageAspectRatio = "aspect-[4/5]";
-        break;
-        case "md_min:col-span-4":
-            imageAspectRatio = "aspect-[4/5]";
-        break;
-        case "md_min:col-span-5":
-            imageAspectRatio = "aspect-[8/6]";
-        break;
-        case "md_min:col-span-6":
-            imageAspectRatio = "aspect-[75/42]";
-        break;
-        case "md_min:col-span-full":
-            imageAspectRatio = "aspect-video";
-        break;
-    }
-    console.log(item)
+switch (itemWidth) {
+    case "md_min:col-span-2":
+        imageAspectRatio = "aspect-[4/5]";
+    break;
+    case "md_min:col-span-3":
+        imageAspectRatio = "aspect-[4/5]";
+    break;
+    case "md_min:col-span-4":
+        imageAspectRatio = "aspect-[4/5]";
+    break;
+    case "md_min:col-span-5":
+        imageAspectRatio = "aspect-[8/6]";
+    break;
+    case "md_min:col-span-6":
+        imageAspectRatio = "aspect-[75/42]";
+    break;
+    case "md_min:col-span-full":
+        imageAspectRatio = "aspect-video";
+    break;
+}
+const {photography} = item;
+// console.log(item)
 ---
 
 <a 
-href={`/photography/${item.photography.slug.current}`}
+href={`/photography/${photography.slug.current}`}
 class={`flex ${itemWidth} relative overflow-hidden`}
 >
     <div class="flex relative overflow-hidden">
         <div class={`flex will-change-transform`}>
-            <img 
-                src="/placeholder.png"
-                alt="Placeholder image"
-                width="1920"
-                height="1080"
-                sizes="(max-width: 768px) 100vw,
-                (max-width: 1200px) 1400px,
-                1920px"
-                class={`${imageAspectRatio} w-full h-full object-cover transition duration-500`}
-            >
+            <picture>
+                <source
+                  srcset={urlForImage(photography.featuredImage.asset).format('webp').quality(80).url()}
+                  type="image/webp"
+                />
+                <img
+                    class={`${imageAspectRatio} w-full h-full object-cover transition duration-500`}
+                    src={urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()}
+                    alt={photography.featuredImage.alt}
+                    srcset={`${urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()} 479w,
+                    ${urlForImage(photography.featuredImage.asset).maxWidth(1200).quality(80).url()} 768w,
+                    ${urlForImage(photography.featuredImage.asset).maxWidth(1920).quality(80).url()} 1200w`}                    
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"                    
+                />
+              </picture>            
         </div>
     </div>
 </a>

@@ -2,13 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Montserrat';
+	src: url('/Montserrat-VariableFont.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+  }
+
 // TAILWIND:BASE
 @layer base {
 	html {
-		@apply scroll-smooth font-sans font-medium tracking-tight;
+		@apply scroll-smooth;
 	}
 	body {
-		@apply antialiased bg-black text-white flex flex-col min-h-screen;
+		@apply font-sans font-medium tracking-tight bg-black text-white flex flex-col min-h-screen;
 	}
 	main {
 		@apply flex-grow;
