@@ -23,6 +23,7 @@ const data = await useSanityClient().fetch(`
   }
 `);
 // console.log(data)
+export const prerender = true
 ---
 <Layout>
 	{data.content.map((section) => {
