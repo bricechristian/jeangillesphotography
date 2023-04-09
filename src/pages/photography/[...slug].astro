@@ -1,10 +1,24 @@
 ---
-import { useSanityClient } from 'astro-sanity';
-import { urlForImage } from '../../utilities/sanityImage.js';
+import { useSanityClient } from "astro-sanity";
+import { urlForImage } from "../../utilities/sanityImage.js";
 
 import "bigger-picture/css";
 
 import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const data = await useSanityClient().fetch(`
+    *[_type=='photography'] {
+      ...
+    }
+  `);
+	let paths = [];
+	data.map(({ slug }) => paths.push({ params: { slug: slug.current } }));
+
+	return paths;
+}
 
 const { slug } = Astro.params;
 
@@ -16,43 +30,41 @@ const data = await useSanityClient().fetch(`
 
 if (!data) return Astro.redirect("/404");
 
-
 const { images } = data;
 // console.log(data)
-// const { data } = Astro.props;
-// const images = [...photography.images]
-export const prerender = true
 ---
 
 <style is:global>
-  .bp-img {
-    display: flex;
-    align-items: center;
-    background-image: none!important;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    transform: none !important;
-  }
-  .bp-img img, .bp-img div {
-    height: auto;
-    object-fit: contain;
-    top: 50%;
-    transform: translateY(-50%);
-    object-position: center;
-    max-height: 80vmin;
-  }
-  @media (orientation: portrait){
-    .bp-img img, .bp-img div {
-      max-width: 80vw;
-      max-height: fit-content;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-    }
-  }
+	.bp-img {
+		display: flex;
+		align-items: center;
+		background-image: none !important;
+		justify-content: center;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 100% !important;
+		transform: none !important;
+	}
+	.bp-img img,
+	.bp-img div {
+		height: auto;
+		object-fit: contain;
+		top: 50%;
+		transform: translateY(-50%);
+		object-position: center;
+		max-height: 80vmin;
+	}
+	@media (orientation: portrait) {
+		.bp-img img,
+		.bp-img div {
+			max-width: 80vw;
+			max-height: fit-content;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+		}
+	}
 	.masonry-layout {
 		--columns: 4;
 		--gap: 2rem;
@@ -61,10 +73,10 @@ export const prerender = true
 		grid-gap: var(--gap);
 	}
 
-  .masonry-layout .image {
-    display: block;
-    margin-bottom: 2rem;
-  }
+	.masonry-layout .image {
+		display: block;
+		margin-bottom: 2rem;
+	}
 
 	.masonry-layout > div > img,
 	.masonry-layout > div > div {
@@ -72,14 +84,14 @@ export const prerender = true
 		margin-bottom: 2rem;
 	}
 
-  @media (max-width: 767px){
-    .masonry-layout {
-      --gap: 1.5rem;
-    }
-    .masonry-layout .image {
-    margin-bottom: 1.5rem;
-  }
-  }
+	@media (max-width: 767px) {
+		.masonry-layout {
+			--gap: 1.5rem;
+		}
+		.masonry-layout .image {
+			margin-bottom: 1.5rem;
+		}
+	}
 
 	.masonry-layout.columns-1 {
 		--columns: 1;
@@ -95,161 +107,241 @@ export const prerender = true
 
 	.masonry-layout.columns-4 {
 		--columns: 4;
-	}    
+	}
 </style>
 
 <Layout>
-  <section class="pb-6 md_min:pb-24">
-      <div class="container text-center">
-				<h1 class="pointer-events-none bottom-12 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent">{data.title}.</h1>
-        <div id="images" class="relative opacity-0">
-          <a
-            href={urlForImage(data.featuredImage.asset).format('webp').maxWidth(800).quality(80).url()}
-            class="image"
-            data-img={`${urlForImage(data.featuredImage.asset).format('webp').maxWidth(800).quality(80).url()} 479w,
-                  ${urlForImage(data.featuredImage.asset).format('webp').maxWidth(1200).quality(80).url()} 768w,
-                  ${urlForImage(data.featuredImage.asset).format('webp').maxWidth(1920).quality(80).url()} 1200w`}
-            data-thumb={urlForImage(data.featuredImage.asset).format('webp').maxWidth(800).quality(80).url()}
-            data-height="1920"
-            data-width="1080"
-            data-alt={data.featuredImage.alt}
-            >
-            <picture>
-              <source
-                srcset={urlForImage(data.featuredImage.asset).format('webp').quality(80).url()}
-                type="image/webp"
-              />
-              <img
-                  src={urlForImage(data.featuredImage.asset).maxWidth(800).quality(80).url()}
-                  width="1920"
-                  width="1080"
-                  alt={data.featuredImage.alt}
-                  srcset={`${urlForImage(data.featuredImage.asset).maxWidth(800).quality(80).url()} 479w,
-                  ${urlForImage(data.featuredImage.asset).maxWidth(1200).quality(80).url()} 768w,
-                  ${urlForImage(data.featuredImage.asset).maxWidth(1920).quality(80).url()} 1200w`}                    
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"                    
-              />
-            </picture>                    
-          </a>
-          {images.map(img => {
-            return (
-                <a
-                  href={urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()}
-                  class="image"
-                  data-img={`${urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()} 479w,
-                        ${urlForImage(img.asset).format('webp').maxWidth(1200).quality(80).url()} 768w,
-                        ${urlForImage(img.asset).format('webp').maxWidth(1920).quality(80).url()} 1200w`}
-                  data-thumb={urlForImage(img.asset).format('webp').maxWidth(800).quality(80).url()}
-                  data-height="1920"
-                  data-width="1080"
-                  data-alt={img.alt}
-                  >
-                  <picture>
-                    <source
-                      srcset={urlForImage(img.asset).format('webp').quality(80).url()}
-                      type="image/webp"
-                    />
-                    <img
-                        src={urlForImage(img.asset).maxWidth(800).quality(80).url()}
-                        width="1920"
-                        width="1080"
-                        alt={img.alt}
-                        srcset={`${urlForImage(img.asset).maxWidth(800).quality(80).url()} 479w,
-                        ${urlForImage(img.asset).maxWidth(1200).quality(80).url()} 768w,
-                        ${urlForImage(img.asset).maxWidth(1920).quality(80).url()} 1200w`}                    
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"                    
-                    />
-                  </picture>                    
-                </a>
-            )
-          })}
-        </div>        
-      </div>
-  </section>       
+	<section class="pb-6 md_min:pb-24">
+		<div class="container text-center">
+			<h1
+				class="pointer-events-none bottom-12 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent"
+			>
+				{data.title}.
+			</h1>
+			<div id="images" class="relative opacity-0">
+				<a
+					href={urlForImage(data.featuredImage.asset)
+						.format("webp")
+						.maxWidth(800)
+						.quality(80)
+						.url()}
+					class="image"
+					data-img={`${urlForImage(data.featuredImage.asset)
+						.format("webp")
+						.maxWidth(800)
+						.quality(80)
+						.url()} 479w,
+                  ${urlForImage(data.featuredImage.asset)
+						.format("webp")
+						.maxWidth(1200)
+						.quality(80)
+						.url()} 768w,
+                  ${urlForImage(data.featuredImage.asset)
+						.format("webp")
+						.maxWidth(1920)
+						.quality(80)
+						.url()} 1200w`}
+					data-thumb={urlForImage(data.featuredImage.asset)
+						.format("webp")
+						.maxWidth(800)
+						.quality(80)
+						.url()}
+					data-height="1920"
+					data-width="1080"
+					data-alt={data.featuredImage.alt}
+				>
+					<picture>
+						<source
+							srcset={urlForImage(data.featuredImage.asset)
+								.format("webp")
+								.quality(80)
+								.url()}
+							type="image/webp"
+						/>
+						<img
+							src={urlForImage(data.featuredImage.asset)
+								.maxWidth(800)
+								.quality(80)
+								.url()}
+							width="1920"
+							width="1080"
+							alt={data.featuredImage.alt}
+							srcset={`${urlForImage(data.featuredImage.asset)
+								.maxWidth(800)
+								.quality(80)
+								.url()} 479w,
+                  ${urlForImage(data.featuredImage.asset)
+						.maxWidth(1200)
+						.quality(80)
+						.url()} 768w,
+                  ${urlForImage(data.featuredImage.asset)
+						.maxWidth(1920)
+						.quality(80)
+						.url()} 1200w`}
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"
+						/>
+					</picture>
+				</a>
+				{
+					images.map((img) => {
+						return (
+							<a
+								href={urlForImage(img.asset)
+									.format("webp")
+									.maxWidth(800)
+									.quality(80)
+									.url()}
+								class="image"
+								data-img={`${urlForImage(img.asset)
+									.format("webp")
+									.maxWidth(800)
+									.quality(80)
+									.url()} 479w,
+                        ${urlForImage(img.asset)
+							.format("webp")
+							.maxWidth(1200)
+							.quality(80)
+							.url()} 768w,
+                        ${urlForImage(img.asset)
+							.format("webp")
+							.maxWidth(1920)
+							.quality(80)
+							.url()} 1200w`}
+								data-thumb={urlForImage(img.asset)
+									.format("webp")
+									.maxWidth(800)
+									.quality(80)
+									.url()}
+								data-height="1920"
+								data-width="1080"
+								data-alt={img.alt}>
+								<picture>
+									<source
+										srcset={urlForImage(img.asset)
+											.format("webp")
+											.quality(80)
+											.url()}
+										type="image/webp"
+									/>
+									<img
+										src={urlForImage(img.asset)
+											.maxWidth(800)
+											.quality(80)
+											.url()}
+										width="1920"
+										width="1080"
+										alt={img.alt}
+										srcset={`${urlForImage(img.asset)
+											.maxWidth(800)
+											.quality(80)
+											.url()} 479w,
+                        ${urlForImage(img.asset)
+							.maxWidth(1200)
+							.quality(80)
+							.url()} 768w,
+                        ${urlForImage(img.asset)
+							.maxWidth(1920)
+							.quality(80)
+							.url()} 1200w`}
+										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"
+									/>
+								</picture>
+							</a>
+						);
+					})
+				}
+			</div>
+		</div>
+	</section>
 </Layout>
 
 <script>
-  import BiggerPicture from "bigger-picture";
-  //bigger picture
-  // initialize BiggerPicture
-  const bp = BiggerPicture({
-    target: document.body
-  });
+	import BiggerPicture from "bigger-picture";
+	//bigger picture
+	// initialize BiggerPicture
+	const bp = BiggerPicture({
+		target: document.body,
+	});
 
-  // grab image links
-  const imageLinks = document.querySelectorAll("#images > a");
+	// grab image links
+	const imageLinks = document.querySelectorAll("#images > a");
 
-  // add click listener to open BiggerPicture
-  for (let link of imageLinks) {
-    link.addEventListener("click", openGallery);
-  }
-
-  // open BiggerPicture
-  function openGallery(e) {
-    e.preventDefault();
-    bp.open({
-      items: imageLinks,
-      el: e.currentTarget
-    });
-  }  
-
-  let columns = 4;
-  const handleResize = () => {
-    if(window.innerWidth < 767){
-      columns = 2;
-    } else {
-      columns = 4;
-    }
-  }
-  handleResize()
-
-  const handleMasonry = function( container, items, columns ) {
-	const containerElement = document.getElementById( container ) || '';
-	if ( ! containerElement ) {
-		return;
+	// add click listener to open BiggerPicture
+	for (let link of imageLinks) {
+		link.addEventListener("click", openGallery);
 	}
-	const wrapperElement = containerElement.parentNode;
-	const masonryElements = document.querySelectorAll( '.' + items );
-	containerElement.parentNode.removeChild( containerElement );
-	const newElement = document.createElement( 'div' );
-	newElement.setAttribute( 'id', container );
-	newElement.classList.add( 'masonry-layout', 'columns-' + columns );
-	wrapperElement.appendChild( newElement );
-	let countColumn = 1;
-	for ( let i = 1; i <= columns; i++ ) {
-		const newColumn = document.createElement( 'div' );
-		newColumn.classList.add( 'masonry-column' );
-		newColumn.classList.add( 'masonry-column-' + i );
-		newElement.appendChild( newColumn );
+
+	// open BiggerPicture
+	function openGallery(e) {
+		e.preventDefault();
+		bp.open({
+			items: imageLinks,
+			el: e.currentTarget,
+		});
 	}
-	for ( let i = 0; i < masonryElements.length; i++ ) {
-		const col = document.querySelector( '#' + container + ' > .masonry-column-' + countColumn );
-		col.appendChild( masonryElements[ i ] );
-		countColumn = countColumn < columns ? countColumn + 1 : 1;
-	}
-};
 
-const destroyMasonry = () => {
-    document.querySelectorAll(".masonry-column").forEach(el => {
-      // get the element's parent node
-      var parent = el.parentNode
-      // move all children out of the element
-      while (el.firstChild) parent.insertBefore(el.firstChild, el);
-      // remove the empty element
-      parent.removeChild(el);
-    })
-    document.getElementById("images").classList.forEach(c => {
-      document.getElementById("images").classList.remove(c)
-    })
-}
+	let columns = 4;
+	const handleResize = () => {
+		if (window.innerWidth < 767) {
+			columns = 2;
+		} else {
+			columns = 4;
+		}
+	};
+	handleResize();
 
-destroyMasonry();
-handleMasonry( 'images', 'image', columns );
+	const handleMasonry = function (container, items, columns) {
+		const containerElement = document.getElementById(container) || "";
+		if (!containerElement) {
+			return;
+		}
+		const wrapperElement = containerElement.parentNode;
+		const masonryElements = document.querySelectorAll("." + items);
+		containerElement.parentNode.removeChild(containerElement);
+		const newElement = document.createElement("div");
+		newElement.setAttribute("id", container);
+		newElement.classList.add("masonry-layout", "columns-" + columns);
+		wrapperElement.appendChild(newElement);
+		let countColumn = 1;
+		for (let i = 1; i <= columns; i++) {
+			const newColumn = document.createElement("div");
+			newColumn.classList.add("masonry-column");
+			newColumn.classList.add("masonry-column-" + i);
+			newElement.appendChild(newColumn);
+		}
+		for (let i = 0; i < masonryElements.length; i++) {
+			const col = document.querySelector(
+				"#" + container + " > .masonry-column-" + countColumn
+			);
+			col.appendChild(masonryElements[i]);
+			countColumn = countColumn < columns ? countColumn + 1 : 1;
+		}
+	};
 
-window.addEventListener("resize", () => {
-  handleResize();
-  destroyMasonry();
-  handleMasonry( 'images', 'image', columns );
-}, false);
+	const destroyMasonry = () => {
+		document.querySelectorAll(".masonry-column").forEach((el) => {
+			// get the element's parent node
+			var parent = el.parentNode;
+			// move all children out of the element
+			while (el.firstChild) parent.insertBefore(el.firstChild, el);
+			// remove the empty element
+			parent.removeChild(el);
+		});
+		document.getElementById("images").classList.forEach((c) => {
+			document.getElementById("images").classList.remove(c);
+		});
+	};
 
+	destroyMasonry();
+	handleMasonry("images", "image", columns);
+
+	window.addEventListener(
+		"resize",
+		() => {
+			handleResize();
+			destroyMasonry();
+			handleMasonry("images", "image", columns);
+		},
+		false
+	);
 </script>

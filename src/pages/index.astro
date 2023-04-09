@@ -5,6 +5,8 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import PhotographyGrid from "../components/PhotographyGrid.astro";
 
+export const prerender = true
+
 const data = await useSanityClient().fetch(`
   *[_type=='page' && slug.current == "home"][0] {
 	..., 
@@ -23,7 +25,6 @@ const data = await useSanityClient().fetch(`
   }
 `);
 // console.log(data)
-export const prerender = true
 ---
 <Layout>
 	{data.content.map((section) => {
