@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 
+:root {
+	--header-height: 69px;
+}
+
 // TAILWIND:BASE
 @layer base {
 	html {
@@ -13,7 +17,7 @@
 		@apply font-sans font-medium tracking-tight bg-black text-white flex flex-col min-h-screen;
 	}
 	main {
-		@apply flex-grow;
+		@apply flex-grow pt-[var(--header-height)];
 	}
 	a {
 		transition: 0.3s;

@@ -20,7 +20,7 @@ module.exports = {
 			transparent: "transparent",
 			gray: "#E6E6E6",
 			"dark-gray": "#999999",
-			black: "#1a1a1a",
+			black: "#1f1f1f",
 			white: "#e9e9e9",
 		},
 		fontSize: {

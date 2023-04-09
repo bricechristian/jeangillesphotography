@@ -19,9 +19,11 @@
     "astro-seo": "^0.7.2",
     "autoprefixer": "^10.4.14",
     "bigger-picture": "^1.1.7",
+    "headspace": "^0.1.1",
     "macy": "^2.5.1",
     "motion": "^10.15.5",
     "sass": "^1.60.0",
+    "scroll-lock": "^2.1.5",
     "tailwindcss": "^3.3.1"
   }
 }

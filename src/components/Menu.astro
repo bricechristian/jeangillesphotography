@@ -1,0 +1,58 @@
+---
+---
+
+<div id="menu" class="fixed inset-0 z-[99] hidden">
+	<div class="grid h-full md_min:grid-cols-2">
+		<div id="menu-left" class="flex justify-center items-center bg-dark-gray text-white p-6 md_min:p-24 translate-y-1/4 opacity-0 ">Left</div>
+		<div id="menu-right" class="flex justify-center items-center bg-black text-white p-6 md_min:p-24 -translate-y-1/4 opacity-0">Right</div>
+	</div>
+</div>
+
+<script>
+	import { animate } from "motion";
+    import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+
+    const $menuToggle = document.getElementById("menu-toggle");
+	const $menu = document.getElementById("menu");
+	const $menuLeft = document.getElementById("menu-left");
+	const $menuRight = document.getElementById("menu-right");
+    let menuOpen = false;
+	$menuToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        $menuToggle.style.pointerEvents = "none";
+        if(menuOpen){
+            $menu.style.display = "block";
+            $menuToggle.textContent = "Close";
+            disablePageScroll($menu);
+            animate(
+                $menuLeft,
+                { opacity: ["0", "1"], y: ["25%", "0"] },
+                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
+            );
+            animate(
+                $menuRight,
+                { opacity: ["0", "1"], y: ["-25%", "0"] },
+                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
+            );
+        } else {
+            $menuToggle.textContent = "Menu";
+            enablePageScroll($menu);
+            animate(
+                $menuLeft,
+                { opacity: ["1", "0"], y: ["0", "25%"] },
+                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
+            );
+            animate(
+                $menuRight,
+                { opacity: ["1", "0"], y: ["0", "-25%"] },
+                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
+            );
+            setTimeout(() => {
+                $menu.style.display = "none";
+            }, 750);
+        }
+        setTimeout(() => {
+            $menuToggle.style.pointerEvents = "auto";
+        }, 750);
+	});
+</script>
