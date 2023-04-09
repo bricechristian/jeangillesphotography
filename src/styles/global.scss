@@ -44,6 +44,12 @@
 		transform: none !important;
 	}
 	// TYPOGRAPHY
+	.typography-shift  {
+		@apply overflow-hidden;
+		span {
+			@apply inline-block;
+		}
+	}
 	.headline {
 		@apply font-sans font-semibold text-80 leading-none md:text-32;
 		&-sm {

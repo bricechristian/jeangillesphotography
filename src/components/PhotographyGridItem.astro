@@ -93,7 +93,7 @@ data-photography={photography.title}
                     class={`${imageAspectRatio} w-full h-full object-cover`}
                     src={urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()}
                     width="1920"
-                    width="1080"
+                    height="1080"
                     alt={photography.featuredImage.alt}
                     srcset={`${urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()} 479w,
                     ${urlForImage(photography.featuredImage.asset).maxWidth(1200).quality(80).url()} 768w,

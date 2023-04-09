@@ -1,58 +1,228 @@
 ---
+import { useSanityClient } from "astro-sanity";
+import { urlForImage } from "../utilities/sanityImage.js";
+
+const menu = await useSanityClient().fetch(`
+*[_type=='menu' && slug.current=='main-menu'][0] {
+    menuItems[]{
+        _key,
+        link {
+            externalLink,
+            external_link,
+            internal_link {
+                "data": *[_id == ^._ref] {
+                    _type,
+                    slug {
+                      current
+                    },
+                    title,
+                    featuredImage
+                }
+            }    
+        },
+        name
+    }
+}
+`);
 ---
 
-<div id="menu" class="fixed inset-0 z-[99] hidden">
-	<div class="grid h-full md_min:grid-cols-2">
-		<div id="menu-left" class="flex justify-center items-center bg-dark-gray text-white p-6 md_min:p-24 translate-y-1/4 opacity-0 ">Left</div>
-		<div id="menu-right" class="flex justify-center items-center bg-black text-white p-6 md_min:p-24 -translate-y-1/4 opacity-0">Right</div>
+<div id="menu" class="fixed inset-0 bg-dark-gray opacity-0 z-[99] overflow-hidden hidden">
+	<div class="flex flex-col h-full md_min:grid-cols-2">
+		<div
+			id="menu-projects"
+			class="flex justify-center items-center text-center flex-grow bg-white text-black p-6 md_min:p-24 -translate-x-full opacity-0 overflow-hidden"
+		>
+			<ul class="grid gap-2 overflow-auto" data-scroll-lock-scrollable>
+				{
+					menu.menuItems.map((item, index) => {
+						return (
+							<li class="headline relative">
+								{item.link?.externalLink ? (
+                                    <div class="overflow-hidden">
+                                        <a
+                                            href={item.link.external_link}
+                                            class="menu-link inline-block"
+                                            target="_blank">
+                                            {item.name} <span class="text-16 ml-2">{(index+1) < 10 ? `0${index+1}` : (index+1)}</span>
+                                        </a>
+                                    </div>                                    
+								) : item.link.internal_link.data[0]._type ===
+								  "photography" ? (
+                                      <div class="overflow-hidden">
+									<a
+										href={`/photography/${item.link.internal_link?.data[0].slug.current}`}
+										class="menu-link menu-link-photography inline-block relative">
+                                        <span>{item.name}</span><span class="text-16 ml-2">{(index+1) < 10 ? `0${index+1}` : (index+1)}</span>
+                                    </a>
+                                    </div>                                        
+                                    <picture>
+                                        <source
+                                            srcset={urlForImage(
+                                                item.link.internal_link
+                                                    .data[0].featuredImage
+                                                    .asset
+                                            )
+                                                .format("webp")
+                                                .maxWidth(500)
+                                                .quality(80)
+                                                .url()}
+                                            type="image/webp"
+                                        />
+                                        <source
+                                            srcset={urlForImage(
+                                                item.link.internal_link
+                                                    .data[0].featuredImage
+                                                    .asset
+                                            )
+                                                .maxWidth(260)
+                                                .format("webp")
+                                                .quality(60)
+                                                .url()}
+                                            type="image/webp"
+                                            media="(max-width: 478px)"
+                                        />
+                                        <img
+                                            src={urlForImage(
+                                                item.link.internal_link
+                                                    .data[0].featuredImage
+                                                    .asset
+                                            )
+                                                .maxWidth(350)
+                                                .quality(80)
+                                                .url()}
+                                            class="menu-link-photography-image fixed z-10 top-12 left-12 opacity-0 transition-opacity pointer-events-none md:!hidden"
+                                            width="260"
+                                            height="150"
+                                            alt={
+                                                item.link.internal_link
+                                                    .data[0].featuredImage
+                                                    .alt
+                                            }
+                                        />
+                                    </picture>
+								) : (
+                                    <div class="overflow-hidden">
+                                        <a
+                                            href={`/${item.link.internal_link?.data[0].slug.current}`}
+                                            class="menu-link inline-block">
+                                            {item.name}<span class="text-16 ml-2">{(index+1) < 10 ? `0${index+1}` : (index+1)}</span>
+                                        </a>
+                                    </div>
+								)}
+							</li>
+						);
+					})
+				}
+			</ul>
+		</div>
 	</div>
 </div>
 
 <script>
-	import { animate } from "motion";
-    import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+	import { timeline, animate, stagger, spring } from "motion";
+	import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
-    const $menuToggle = document.getElementById("menu-toggle");
+	const $header = document.querySelector("header");
+	const $menuToggle = document.getElementById("menu-toggle");
 	const $menu = document.getElementById("menu");
-	const $menuLeft = document.getElementById("menu-left");
-	const $menuRight = document.getElementById("menu-right");
-    let menuOpen = false;
+	const $menuProjects = document.getElementById("menu-projects");
+	let menuOpen = false;
+
+	//MENU TOGGLE
 	$menuToggle.addEventListener("click", () => {
-        menuOpen = !menuOpen;
-        $menuToggle.style.pointerEvents = "none";
-        if(menuOpen){
-            $menu.style.display = "block";
-            $menuToggle.textContent = "Close";
-            disablePageScroll($menu);
-            animate(
-                $menuLeft,
-                { opacity: ["0", "1"], y: ["25%", "0"] },
-                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
-            );
-            animate(
-                $menuRight,
-                { opacity: ["0", "1"], y: ["-25%", "0"] },
-                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
-            );
-        } else {
-            $menuToggle.textContent = "Menu";
-            enablePageScroll($menu);
-            animate(
-                $menuLeft,
-                { opacity: ["1", "0"], y: ["0", "25%"] },
-                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
-            );
-            animate(
-                $menuRight,
-                { opacity: ["1", "0"], y: ["0", "-25%"] },
-                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
-            );
-            setTimeout(() => {
-                $menu.style.display = "none";
-            }, 750);
-        }
-        setTimeout(() => {
-            $menuToggle.style.pointerEvents = "auto";
-        }, 750);
+		menuOpen = !menuOpen;
+		$menuToggle.style.pointerEvents = "none";
+		if (menuOpen) {
+			$menu.style.display = "block";
+			$menuToggle.textContent = "Close";
+			$header.classList.add("light-mode");
+			disablePageScroll();
+			timeline([
+				[
+					$menu,
+					{ opacity: ["0", "1"] },
+					{ duration: 0.75, easing: [0.25, 1, 0.5, 1] },
+				],
+				[
+					$menuProjects,
+					{ opacity: ["0", "1"], x: ["-100%", "0"] },
+					{
+						at: 0,
+						delay: 0.3,
+						duration: 0.75,
+						easing: [0.25, 1, 0.5, 1],
+					},
+				],
+				[
+					".menu-link",
+					{ y: ["100%", "0"] },
+					{
+						at: 0.6,
+						duration: 0.75,
+						easing: [0.25, 1, 0.5, 1],
+						delay: stagger(0.1),
+					},
+				],
+			]);
+		} else {
+			$menuToggle.textContent = "Menu";
+			$header.classList.remove("light-mode");
+			enablePageScroll();
+			timeline([
+				[
+					$menuProjects,
+					{ opacity: ["1", "0"], x: ["0", "-100%"] },
+					{ duration: 0.75, easing: [0.25, 1, 0.5, 1] },
+				],
+				[
+					$menu,
+					{ opacity: ["1", "0"] },
+					{
+						at: 0.25,
+						duration: 0.75,
+						easing: [0.25, 1, 0.5, 1],
+					},
+				],
+			]);
+			setTimeout(() => {
+				$menu.style.display = "none";
+			}, 750);
+		}
+		setTimeout(() => {
+			$menuToggle.style.pointerEvents = "auto";
+		}, 750);
 	});
+
+	//MENU ITEM HOVER
+	let mousePos = { x: undefined, y: undefined };
+	window.addEventListener("mousemove", (event) => {
+		mousePos = { x: event.clientX, y: event.clientY };
+		animate(
+		    ".menu-link-photography-image",
+		    { x: mousePos.x, y: mousePos.y },
+		    { easing: spring({ mass: 0.2 }) }
+		);
+	});
+	const $menuImageLinks = document.querySelectorAll(".menu-link-photography");
+    const handleDimLinks = () => {
+        $menuImageLinks.forEach((link) => {
+            link.style.opacity = ".25";
+        })
+    }
+	$menuImageLinks.forEach((link) => {
+		const img = link.closest("li").querySelector(".menu-link-photography-image");
+		link.addEventListener("mouseenter", () => {
+            handleDimLinks();
+            link.style.opacity = "1";
+			img.classList.remove("opacity-0");
+		});
+		link.addEventListener("mouseleave", () => {
+			img.classList.add("opacity-0");
+		});
+	});
+    $menuProjects.querySelector("ul").addEventListener("mouseleave", () => {
+        $menuImageLinks.forEach((link) => {
+            link.style.opacity = "1";
+        })
+    })
 </script>
