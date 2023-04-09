@@ -4,7 +4,40 @@ const {data} = Astro.props;
 const gridItems = data.photographyGridItems;
 ---
 
+<style>
+    #cursor {
+        position: fixed;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s;
+    }
+    #cursor-dot,
+    #cursor-text {
+        margin-top: -2.5rem;
+        margin-left: -1rem;
+    }
+    #cursor-dot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 1px solid white;
+        border-radius: 9999px;
+        margin-right: 1.75rem;
+    }
+</style>
+
 <div class="container">
+    <div id="cursor" class="md:!hidden">
+        <div id="cursor-dot">
+            <div class="w-6 h-6 bg-white rounded-full animate-pulser"></div>
+        </div>
+        <div id="cursor-text" class="headline text-20"></div>
+    </div>
     <div class="grid gap-1 md_min:grid-cols-8">
         {gridItems.map((item, index) => {
             let itemWidth;
@@ -32,3 +65,46 @@ const gridItems = data.photographyGridItems;
         })}
     </div>
 </div>
+
+<script>
+    import { inView, animate, spring } from "motion";
+    const cursor = document.getElementById('cursor');
+    const cursorText = document.getElementById('cursor-text');
+    let mousePos = { x: undefined, y: undefined };
+
+    window.addEventListener('mousemove', (event) => {
+        mousePos = { x: event.clientX, y: event.clientY };
+        animate(
+            cursor,
+            { x: mousePos.x, y: mousePos.y },
+            { easing: spring({ mass: 0.2 }) }
+        );
+    });    
+
+    document.querySelectorAll(".photography-grid-item").forEach(p => {
+        p.addEventListener("mouseenter", () => {
+            cursorText.textContent = p.getAttribute("data-photography");
+            cursor.style.opacity = '1';
+        }, false)
+        p.addEventListener("mouseleave", () => {
+            cursorText.textContent = p.getAttribute("data-photography");
+            cursor.style.opacity = '0';
+        }, false)
+        inView(p, ({ target }) => {
+            animate(
+                target.querySelector(".overlay"),
+                { y: "-100%" },
+                { duration: 0.75, easing: [0.25, 1, 0.5, 1] }
+            );
+            animate(
+                target.querySelector("img"),
+                { scale: ["1.15", "1"] },
+                { delay: .15, duration: 0.95, easing: [0.25, 1, 0.5, 1] }
+            );
+            setTimeout(() => {
+                target.classList.add("in-view")
+            }, 1000);
+        });        
+    })
+
+</script>    
