@@ -63,7 +63,7 @@ const menu = await useSanityClient().fetch(`
                                                     .asset
                                             )
                                                 .format("webp")
-                                                .maxWidth(500)
+                                                .width(500)
                                                 .quality(80)
                                                 .url()}
                                             type="image/webp"
@@ -74,7 +74,7 @@ const menu = await useSanityClient().fetch(`
                                                     .data[0].featuredImage
                                                     .asset
                                             )
-                                                .maxWidth(260)
+                                                .width(260)
                                                 .format("webp")
                                                 .quality(60)
                                                 .url()}
@@ -87,7 +87,7 @@ const menu = await useSanityClient().fetch(`
                                                     .data[0].featuredImage
                                                     .asset
                                             )
-                                                .maxWidth(350)
+                                                .width(350)
                                                 .quality(80)
                                                 .url()}
                                             class="menu-link-photography-image fixed z-10 top-12 left-12 opacity-0 transition-opacity pointer-events-none md:!hidden"

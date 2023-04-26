@@ -64,7 +64,7 @@ data-photography={photography.title}
                 />
                 <source
                 srcset={urlForImage(photography.featuredImage.asset)
-                .maxWidth(1200)
+                .width(1200)
                     .format("webp")
                     .quality(80)
                     .url()}
@@ -73,7 +73,7 @@ data-photography={photography.title}
                 />
                 <source
                 srcset={urlForImage(photography.featuredImage.asset)
-                .maxWidth(800)
+                .width(800)
                     .format("webp")
                     .quality(80)
                     .url()}
@@ -82,7 +82,7 @@ data-photography={photography.title}
                 />
                 <source
                 srcset={urlForImage(photography.featuredImage.asset)
-                .maxWidth(500)
+                .width(500)
                     .format("webp")
                     .quality(60)
                     .url()}
@@ -91,13 +91,13 @@ data-photography={photography.title}
                 />
                 <img
                     class={`${imageAspectRatio} w-full h-full object-cover`}
-                    src={urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()}
+                    src={urlForImage(photography.featuredImage.asset).width(800).quality(80).url()}
                     width="1920"
                     height="1080"
                     alt={photography.featuredImage.alt}
-                    srcset={`${urlForImage(photography.featuredImage.asset).maxWidth(800).quality(80).url()} 479w,
-                    ${urlForImage(photography.featuredImage.asset).maxWidth(1200).quality(80).url()} 768w,
-                    ${urlForImage(photography.featuredImage.asset).maxWidth(1920).quality(80).url()} 1200w`}                    
+                    srcset={`${urlForImage(photography.featuredImage.asset).width(800).quality(80).url()} 479w,
+                    ${urlForImage(photography.featuredImage.asset).width(1200).quality(80).url()} 768w,
+                    ${urlForImage(photography.featuredImage.asset).width(1920).quality(80).url()} 1200w`}                    
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"                    
                 />
               </picture>            

@@ -123,28 +123,28 @@ const { images } = data;
 				<a
 					href={urlForImage(data.featuredImage.asset)
 						.format("webp")
-						.maxWidth(800)
+						.width(800)
 						.quality(80)
 						.url()}
 					class="image"
 					data-img={`${urlForImage(data.featuredImage.asset)
 						.format("webp")
-						.maxWidth(800)
+						.width(800)
 						.quality(80)
 						.url()} 479w,
                   ${urlForImage(data.featuredImage.asset)
 						.format("webp")
-						.maxWidth(1200)
+						.width(1200)
 						.quality(80)
 						.url()} 768w,
                   ${urlForImage(data.featuredImage.asset)
 						.format("webp")
-						.maxWidth(1920)
+						.width(1920)
 						.quality(80)
 						.url()} 1200w`}
 					data-thumb={urlForImage(data.featuredImage.asset)
 						.format("webp")
-						.maxWidth(800)
+						.width(800)
 						.quality(80)
 						.url()}
 					data-height="1920"
@@ -162,7 +162,7 @@ const { images } = data;
 						/>
 						<source
 							srcset={urlForImage(data.featuredImage.asset)
-                .maxWidth(1200)
+                .width(1200)
 								.format("webp")
 								.quality(80)
 								.url()}
@@ -171,7 +171,7 @@ const { images } = data;
 						/>
 						<source
 							srcset={urlForImage(data.featuredImage.asset)
-                .maxWidth(800)
+                .width(800)
 								.format("webp")
 								.quality(80)
 								.url()}
@@ -180,7 +180,7 @@ const { images } = data;
 						/>
 						<source
 							srcset={urlForImage(data.featuredImage.asset)
-                .maxWidth(500)
+                .width(500)
 								.format("webp")
 								.quality(60)
 								.url()}
@@ -189,22 +189,22 @@ const { images } = data;
 						/>
 						<img
 							src={urlForImage(data.featuredImage.asset)
-								.maxWidth(800)
+								.width(800)
 								.quality(80)
 								.url()}
 							width="1920"
 							width="1080"
 							alt={data.featuredImage.alt}
 							srcset={`${urlForImage(data.featuredImage.asset)
-								.maxWidth(600)
+								.width(600)
 								.quality(80)
 								.url()} 479w,
                   ${urlForImage(data.featuredImage.asset)
-						.maxWidth(1200)
+						.width(1200)
 						.quality(80)
 						.url()} 768w,
                   ${urlForImage(data.featuredImage.asset)
-						.maxWidth(1920)
+						.width(1920)
 						.quality(80)
 						.url()} 1200w`}
 							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"
@@ -217,28 +217,28 @@ const { images } = data;
 							<a
 								href={urlForImage(img.asset)
 									.format("webp")
-									.maxWidth(800)
+									.width(800)
 									.quality(80)
 									.url()}
 								class="image"
 								data-img={`${urlForImage(img.asset)
 									.format("webp")
-									.maxWidth(800)
+									.width(800)
 									.quality(80)
 									.url()} 479w,
                         ${urlForImage(img.asset)
 							.format("webp")
-							.maxWidth(1200)
+							.width(1200)
 							.quality(80)
 							.url()} 768w,
                         ${urlForImage(img.asset)
 							.format("webp")
-							.maxWidth(1920)
+							.width(1920)
 							.quality(80)
 							.url()} 1200w`}
 								data-thumb={urlForImage(img.asset)
 									.format("webp")
-									.maxWidth(800)
+									.width(800)
 									.quality(80)
 									.url()}
 								data-height="1920"
@@ -255,7 +255,7 @@ const { images } = data;
                   />
                   <source
                     srcset={urlForImage(img.asset)
-                      .maxWidth(1200)
+                      .width(1200)
                       .format("webp")
                       .quality(80)
                       .url()}
@@ -264,7 +264,7 @@ const { images } = data;
                   />
                   <source
                     srcset={urlForImage(img.asset)
-                      .maxWidth(800)
+                      .width(800)
                       .format("webp")
                       .quality(80)
                       .url()}
@@ -273,7 +273,7 @@ const { images } = data;
                   />
                   <source
                     srcset={urlForImage(img.asset)
-                      .maxWidth(500)
+                      .width(500)
                       .format("webp")
                       .quality(60)
                       .url()}
@@ -282,22 +282,22 @@ const { images } = data;
                   />
 									<img
 										src={urlForImage(img.asset)
-											.maxWidth(800)
+											.width(800)
 											.quality(80)
 											.url()}
 										width="1920"
 										width="1080"
 										alt={img.alt}
 										srcset={`${urlForImage(img.asset)
-											.maxWidth(800)
+											.width(800)
 											.quality(80)
 											.url()} 479w,
                         ${urlForImage(img.asset)
-							.maxWidth(1200)
+							.width(1200)
 							.quality(80)
 							.url()} 768w,
                         ${urlForImage(img.asset)
-							.maxWidth(1920)
+							.width(1920)
 							.quality(80)
 							.url()} 1200w`}
 										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1400px, 1920px"
