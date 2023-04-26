@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
 // import vercel from '@astrojs/vercel/serverless';
-import vercel from '@astrojs/vercel/edge';
+// import vercel from '@astrojs/vercel/edge';
 import sanity from "astro-sanity";
-
 import sitemap from "@astrojs/sitemap";
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +15,5 @@ export default defineConfig({
     useCdn: false
   }), sitemap()],
   output: 'server',
-  adapter: vercel()
+  adapter: netlify()
 });
