@@ -22,7 +22,21 @@ export async function handler(event, context) {
             token //NEEDED TO GET DRAFTS
         });
 
-        const response = await previewClient.query(`*[_type=="${type}" && slug.current == "${slug}"][0]`);
+        const response = await previewClient.query(`*[_type=="${type}" && slug.current == "${slug}"][0]{
+            ..., 
+            content[] {
+                ...,
+                photographyGridItems[]{
+                    ...,
+                    photography-> {
+                        _id,
+                        featuredImage,
+                        slug,
+                        title
+                    }
+                }
+            }
+          }`);
         const data = response
         return {
             statusCode: 200,

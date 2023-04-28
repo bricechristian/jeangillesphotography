@@ -22,6 +22,7 @@
     "astro-sanity": "^1.1.3",
     "astro-seo": "^0.7.2",
     "autoprefixer": "^10.4.14",
+    "axios": "^1.4.0",
     "bigger-picture": "^1.1.7",
     "headspace": "^0.1.1",
     "macy": "^2.5.1",

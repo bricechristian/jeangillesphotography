@@ -1,4 +1,5 @@
 ---
+import axios from "axios";
 import { useSanityClient } from 'astro-sanity';
 
 import Layout from "../layouts/Layout.astro";
@@ -24,10 +25,24 @@ const data = await useSanityClient().fetch(`
 	}
   }
 `);
-// console.log(data)
+
+let content = data.content;
+
+if(Astro.url.search.includes("?preview=true")){
+	const fetchPreview = async () => {
+		const response = await axios.get(
+			`https://jeangillesphotography.netlify.app/.netlify/functions/preview?type=page&slug=home`
+		);
+		const { data } = await response.data;
+		content = data.content;		
+		console.log(content[0].photographyGridItems)
+	}
+	await fetchPreview();
+}
+
 ---
 <Layout>
-	{data.content.map((section) => {
+	{content.map((section) => {
 		switch (section._type) {
 			case "hero":
 				return 	<Hero />;
