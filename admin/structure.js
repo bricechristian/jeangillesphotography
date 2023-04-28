@@ -4,9 +4,9 @@ const getPreviewURL = (doc) => {
 	// console.log(doc)
 	return doc?.slug?.current
 		? `${
-				process.env.VERCEL_URL || "http://localhost:3000"
-		  }/api/preview?type=${doc._type}&slug=${doc.slug.current}`
-		: `${process.env.VERCEL_URL || "http://localhost:3000"}`;
+				process.env.NETLIFY_URL || "http://localhost:3000"
+		  }?preview=true`
+		: `${process.env.NETLIFY_URL || "http://localhost:3000"}`;
 };
 
 export const adminStructure = (S) =>
