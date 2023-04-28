@@ -35,7 +35,6 @@ if(Astro.url.search.includes("?preview=true")){
 		);
 		const { data } = await response.data;
 		content = data.content;		
-		console.log(content[0].photographyGridItems)
 	}
 	await fetchPreview();
 }
