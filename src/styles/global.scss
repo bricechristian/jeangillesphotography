@@ -47,7 +47,7 @@
 	.typography-shift  {
 		@apply overflow-hidden;
 		span {
-			@apply inline-block;
+			@apply inline-block opacity-0;
 		}
 	}
 	.headline {

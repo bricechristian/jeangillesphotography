@@ -40,8 +40,8 @@ const { images } = data;
 		align-items: center;
 		background-image: none !important;
 		justify-content: center;
-		top: 0;
-		left: 0;
+		top: 0 !important;
+		left: 0 !important;
 		width: 100% !important;
 		height: 100% !important;
 		transform: none !important;
@@ -51,8 +51,8 @@ const { images } = data;
 	.bp-img div {
 		height: auto;
 		object-fit: contain;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 50% !important;
+		transform: translateY(-50%) !important;
 		object-position: center;
 		max-height: 80vmin;
 	}
@@ -111,11 +111,11 @@ const { images } = data;
 	}
 </style>
 
-<Layout>
+<Layout title={data.title}>
 	<section class="pb-6 md_min:pb-24">
 		<div class="container text-center">
 			<h1
-				class="typography-shift pointer-events-none bottom-12 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent"
+				class="typography-shift pointer-events-none bottom-0 left-6 headline-sm md:mb-5 md_min:fixed md_min:z-20 md_min:text-[16vw] md_min:block md_min:w-full md_min:text-left md_min:before:flex md_min:before:h-[120%] md_min:before:w-full md_min:before:absolute md_min:before:-z-1 md_min:before:-bottom-1/4 md_min:before:left-0 md_min:before:bg-gradient-to-t md_min:before:from-black md_min:before:to-transparent"
 			>
 				<span>{data.title}.</span>
 			</h1>
