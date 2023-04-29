@@ -38,10 +38,10 @@ const {photography} = item;
 </style>
 <a 
 href={`/photography/${photography.slug.current}`}
-class={`photography-grid-item flex ${itemWidth} relative overflow-hidden group`}
+class={`photography-grid-item flex ${itemWidth} ${imageAspectRatio} w-full h-full relative overflow-hidden group`}
 data-photography={photography.title}
 >
-    <div class={`${imageAspectRatio} flex relative overflow-hidden`}>
+    <div class={`flex relative overflow-hidden w-full`}>
         <div class="overlay absolute w-full h-full z-30 inset-0 translate-y-0 bg-black"></div>
         <div class="bg-black opacity-0 absolute inset-0 z-10 transition duration-500 supports-hover:group-hover:opacity-40 md:opacity-40"></div>
         <div class="absolute inset-0 z-20 flex items-center justify-center md_min:hidden">
@@ -52,7 +52,7 @@ data-photography={photography.title}
                 <div class="headline text-20">{photography.title}</div>
             </div>
         </div>
-        <div class={`flex will-change-transform`}>
+        <div class={`flex will-change-transform w-full`}>
             <picture>
                 <source
                 srcset={urlForImage(photography.featuredImage.asset)
@@ -90,7 +90,7 @@ data-photography={photography.title}
                 media="(max-width: 478px)"
                 />
                 <img
-                    class={`${imageAspectRatio} w-full h-auto object-cover`}
+                    class={`${imageAspectRatio} w-full h-full absolute inset-0 object-cover`}
                     src={urlForImage(photography.featuredImage.asset).width(800).quality(80).url()}
                     width="1920"
                     height="1080"
