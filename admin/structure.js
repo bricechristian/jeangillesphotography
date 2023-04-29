@@ -4,9 +4,9 @@ const getPreviewURL = (doc) => {
 	// console.log(doc)
 	return doc?.slug?.current
 		? `${
-				process.env.NETLIFY_URL || "http://localhost:3000"
+				process.env.NETLIFY_URL || "https://jeangillesphotography.com"
 		  }?preview=true`
-		: `${process.env.NETLIFY_URL || "http://localhost:3000"}`;
+		: `${process.env.NETLIFY_URL || "https://jeangillesphotography.com"}`;
 };
 
 export const adminStructure = (S) =>

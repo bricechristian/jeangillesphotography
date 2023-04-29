@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSanityClient } from 'astro-sanity';
 
 import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
 import Hero from "../components/Hero.astro";
 import PhotographyGrid from "../components/PhotographyGrid.astro";
 
@@ -51,4 +52,5 @@ if(Astro.url.search.includes("?preview=true")){
 			// 	return <TextHeadline data={section} />;
 		}
 	})}	
+	<Footer />
 </Layout>

@@ -1,0 +1,64 @@
+---
+import { useSanityClient } from "astro-sanity";
+
+const global = await useSanityClient().fetch(`*[_type=='global'][0]`);
+const menu = await useSanityClient().fetch(`
+*[_type=='menu' && slug.current=='main-menu'][0] {
+    menuItems[]{
+        _key,
+        link {
+            externalLink,
+            external_link,
+            internal_link {
+                "data": *[_id == ^._ref] {
+                    _type,
+                    slug {
+                      current
+                    },
+                    title,
+                    featuredImage
+                }
+            }    
+        },
+        name
+    }
+}
+`);
+
+---
+
+<footer class="py-8">
+    <div class="container text-center">
+        <div class="grid lg_min:grid-cols-[1fr_247px] gap-4 items-center pt-4 border-t border-[rgba(255,255,255,0.25)]">
+            <ul class="flex items-center flex-wrap -ml-2 lg:justify-center">
+                {
+                    menu.menuItems.map((item, index) => {
+                        return (
+                            <li class="relative m-2">
+                                {item.link?.externalLink ? (
+                                    <a
+                                        href={item.link.external_link}
+                                        class="caps inline-flex"
+                                        target="_blank">{item.name}
+                                    </a>                             
+                                ) : item.link.internal_link.data[0]._type ===
+                                  "photography" ? (
+                                    <a
+                                        href={`/photography/${item.link.internal_link?.data[0].slug.current}`}
+                                        class="caps inline-flex">{item.name}
+                                    </a>                                       
+                                ) : (
+                                    <a
+                                        href={`/${item.link.internal_link?.data[0].slug.current}`}
+                                        class="caps inline-flex">{item.name}
+                                    </a>
+                                )}
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+            <p class="leading-none relative top-0.5">© {new Date().getFullYear()} {global.site_title}</p>
+        </div>
+    </div>
+</footer>

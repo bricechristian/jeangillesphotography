@@ -14,7 +14,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: `${process.env.NETLIFY_URL || "http://localhost:3000"}/_______`,
+      description: `${process.env.NETLIFY_URL || "https://jeangillesphotography.com"}/_______`,
       validation: Rule => Rule.required(),
       options: {
         source: 'title',
