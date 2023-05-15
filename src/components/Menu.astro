@@ -149,7 +149,7 @@ const menu = await useSanityClient().fetch(`
 					): ""}
 					{global.social_links?.email && global.social_links.email.includes("@") ? (
 						<li>
-							<a href={`mailto:${global.social_links.email}`} class="group w-48 h-48 flex items-center justify-center rounded-full bg-black text-white border-2 border-black relative overflow-hidden lg:w-32 lg:h-32">
+							<a href={`mailto:${global.social_links.email}`} target="_blank" class="group w-48 h-48 flex items-center justify-center rounded-full bg-black text-white border-2 border-black relative overflow-hidden lg:w-32 lg:h-32">
 								<span class="absolute w-full h-full rounded-full bg-white opacity-0 scale-[.25] transition-smooth supports-hover:group-hover:scale-100 supports-hover:group-hover:opacity-100"></span>
 								<span class="relative z-10 transition-smooth supports-hover:group-hover:text-black">Let's Chat!</span>
 							</a>
