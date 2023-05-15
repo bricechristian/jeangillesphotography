@@ -19,7 +19,7 @@ export default defineType({
         source: 'title',
         maxLength: 96,
       },
-    }),       
+    }),        
     defineField({
         type: 'array',
         name: 'menuItems',
