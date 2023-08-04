@@ -7,7 +7,7 @@ import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jeangillesphotography.netlify.app',
+  site: 'https://jeangillesphotography.com',
   integrations: [sanity({
     projectId: 'h890ay2m',
     dataset: 'production',
